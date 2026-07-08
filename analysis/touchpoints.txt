@@ -1,0 +1,14 @@
+endpoint:ANY:/test_reset.php
+endpoint:GET:/logout.php
+page:/dashboard.php
+page:/index.php
+page:/login.php
+page:/modules/admin/users.php
+page:/modules/entries/edit.php
+page:/modules/entries/list.php
+page:/modules/reports/journal.php
+page:/modules/reports/ledger.php
+page:/modules/reports/trial_balance.php
+page:/modules/setup/accounts.php
+page:/modules/setup/company.php
+page:/modules/setup/journals.php

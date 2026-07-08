@@ -1,0 +1,1156 @@
+{
+  "nodes": {
+    "endpoint:ANY:/test_reset.php": {
+      "deps": [
+        "func:www/test_reset.php"
+      ],
+      "exploration": "analyzed"
+    },
+    "endpoint:GET:/logout.php": {
+      "deps": [
+        "func:www/logout.php"
+      ],
+      "exploration": "analyzed"
+    },
+    "func:www/dashboard.php": {
+      "deps": [
+        "func:www/footer.php",
+        "func:www/header.php",
+        "func:www/lib/auth.php:require_login",
+        "func:www/lib/db.php:db_fetch_all",
+        "func:www/lib/db.php:db_fetch_assoc",
+        "func:www/lib/db.php:db_query",
+        "func:www/lib/utils.php:format_date",
+        "func:www/lib/utils.php:format_money",
+        "func:www/lib/utils.php:get_company",
+        "func:www/lib/utils.php:h"
+      ],
+      "exploration": "analyzed",
+      "loc": 111,
+      "lineStart": 1,
+      "lineEnd": 111,
+      "E": 0,
+      "R": 5,
+      "W": 0,
+      "X": 1
+    },
+    "func:www/footer.php": {
+      "deps": [],
+      "exploration": "analyzed",
+      "loc": 12,
+      "lineStart": 1,
+      "lineEnd": 12
+    },
+    "func:www/header.php": {
+      "deps": [
+        "func:www/lib/auth.php:auth_is_logged_in",
+        "func:www/lib/auth.php:auth_start_session",
+        "func:www/lib/auth.php:auth_username",
+        "func:www/lib/utils.php:_compta_transform_output",
+        "func:www/lib/utils.php:get_flash",
+        "func:www/lib/utils.php:h"
+      ],
+      "exploration": "analyzed",
+      "loc": 82,
+      "lineStart": 1,
+      "lineEnd": 82
+    },
+    "func:www/index.php": {
+      "deps": [],
+      "exploration": "analyzed",
+      "loc": 67,
+      "lineStart": 1,
+      "lineEnd": 67,
+      "E": 0,
+      "R": 1,
+      "W": 0,
+      "X": 1
+    },
+    "func:www/lib/auth.php:audit_log": {
+      "deps": [
+        "func:www/lib/auth.php:auth_user_id",
+        "func:www/lib/db.php:db_escape",
+        "func:www/lib/db.php:db_query"
+      ],
+      "exploration": "analyzed",
+      "loc": 15,
+      "lineStart": 157,
+      "lineEnd": 171,
+      "E": 0,
+      "R": 0,
+      "W": 1,
+      "X": 0
+    },
+    "func:www/lib/auth.php:auth_hash_password": {
+      "deps": [],
+      "exploration": "analyzed",
+      "loc": 3,
+      "lineStart": 22,
+      "lineEnd": 24
+    },
+    "func:www/lib/auth.php:auth_is_logged_in": {
+      "deps": [
+        "func:www/lib/auth.php:auth_start_session"
+      ],
+      "exploration": "analyzed",
+      "loc": 4,
+      "lineStart": 80,
+      "lineEnd": 83
+    },
+    "func:www/lib/auth.php:auth_login": {
+      "deps": [
+        "func:www/lib/auth.php:audit_log",
+        "func:www/lib/auth.php:auth_verify_password",
+        "func:www/lib/db.php:db_escape",
+        "func:www/lib/db.php:db_fetch_assoc",
+        "func:www/lib/db.php:db_num_rows",
+        "func:www/lib/db.php:db_query"
+      ],
+      "exploration": "analyzed",
+      "loc": 26,
+      "lineStart": 36,
+      "lineEnd": 61,
+      "E": 0,
+      "R": 1,
+      "W": 1,
+      "X": 0
+    },
+    "func:www/lib/auth.php:auth_logout": {
+      "deps": [
+        "func:www/lib/auth.php:audit_log",
+        "func:www/lib/auth.php:auth_start_session"
+      ],
+      "exploration": "analyzed",
+      "loc": 10,
+      "lineStart": 66,
+      "lineEnd": 75
+    },
+    "func:www/lib/auth.php:auth_start_session": {
+      "deps": [],
+      "exploration": "analyzed",
+      "loc": 5,
+      "lineStart": 13,
+      "lineEnd": 17
+    },
+    "func:www/lib/auth.php:auth_user_id": {
+      "deps": [
+        "func:www/lib/auth.php:auth_start_session"
+      ],
+      "exploration": "analyzed",
+      "loc": 4,
+      "lineStart": 88,
+      "lineEnd": 91
+    },
+    "func:www/lib/auth.php:auth_username": {
+      "deps": [
+        "func:www/lib/auth.php:auth_start_session"
+      ],
+      "exploration": "analyzed",
+      "loc": 4,
+      "lineStart": 96,
+      "lineEnd": 99
+    },
+    "func:www/lib/auth.php:auth_verify_password": {
+      "deps": [
+        "func:www/lib/auth.php:auth_hash_password"
+      ],
+      "exploration": "analyzed",
+      "loc": 3,
+      "lineStart": 29,
+      "lineEnd": 31
+    },
+    "func:www/lib/auth.php:csrf_field": {
+      "deps": [
+        "func:www/lib/auth.php:csrf_token"
+      ],
+      "exploration": "analyzed",
+      "loc": 3,
+      "lineStart": 128,
+      "lineEnd": 130
+    },
+    "func:www/lib/auth.php:csrf_token": {
+      "deps": [
+        "func:www/lib/auth.php:auth_start_session"
+      ],
+      "exploration": "analyzed",
+      "loc": 9,
+      "lineStart": 115,
+      "lineEnd": 123
+    },
+    "func:www/lib/auth.php:csrf_verify": {
+      "deps": [],
+      "exploration": "analyzed",
+      "loc": 7,
+      "lineStart": 135,
+      "lineEnd": 141
+    },
+    "func:www/lib/auth.php:require_login": {
+      "deps": [
+        "func:www/lib/auth.php:auth_is_logged_in",
+        "func:www/lib/utils.php:set_flash"
+      ],
+      "exploration": "analyzed",
+      "loc": 7,
+      "lineStart": 104,
+      "lineEnd": 110,
+      "E": 0,
+      "R": 0,
+      "W": 0,
+      "X": 1
+    },
+    "func:www/lib/db.php:SQLiteResult.__construct": {
+      "deps": [],
+      "exploration": "analyzed",
+      "loc": 5,
+      "lineStart": 24,
+      "lineEnd": 28
+    },
+    "func:www/lib/db.php:SQLiteResult.fetch": {
+      "deps": [],
+      "exploration": "analyzed",
+      "loc": 6,
+      "lineStart": 30,
+      "lineEnd": 35
+    },
+    "func:www/lib/db.php:SQLiteResult.numRows": {
+      "deps": [],
+      "exploration": "analyzed",
+      "loc": 3,
+      "lineStart": 43,
+      "lineEnd": 45
+    },
+    "func:www/lib/db.php:db_connect": {
+      "deps": [
+        "func:www/lib/db.php:get_db_path"
+      ],
+      "exploration": "analyzed",
+      "loc": 27,
+      "lineStart": 87,
+      "lineEnd": 113
+    },
+    "func:www/lib/db.php:db_escape": {
+      "deps": [
+        "func:www/lib/db.php:db_connect"
+      ],
+      "exploration": "analyzed",
+      "loc": 15,
+      "lineStart": 213,
+      "lineEnd": 227
+    },
+    "func:www/lib/db.php:db_fetch_all": {
+      "deps": [],
+      "exploration": "analyzed",
+      "loc": 11,
+      "lineStart": 169,
+      "lineEnd": 179
+    },
+    "func:www/lib/db.php:db_fetch_assoc": {
+      "deps": [
+        "func:www/lib/db.php:SQLiteResult.fetch"
+      ],
+      "exploration": "analyzed",
+      "loc": 11,
+      "lineStart": 152,
+      "lineEnd": 162
+    },
+    "func:www/lib/db.php:db_insert_id": {
+      "deps": [],
+      "exploration": "analyzed",
+      "loc": 4,
+      "lineStart": 203,
+      "lineEnd": 206
+    },
+    "func:www/lib/db.php:db_num_rows": {
+      "deps": [
+        "func:www/lib/db.php:SQLiteResult.numRows"
+      ],
+      "exploration": "analyzed",
+      "loc": 11,
+      "lineStart": 186,
+      "lineEnd": 196
+    },
+    "func:www/lib/db.php:db_query": {
+      "deps": [
+        "func:www/lib/db.php:SQLiteResult.__construct",
+        "func:www/lib/db.php:db_connect"
+      ],
+      "exploration": "analyzed",
+      "loc": 26,
+      "lineStart": 120,
+      "lineEnd": 145
+    },
+    "func:www/lib/db.php:get_db_path": {
+      "deps": [
+        "func:www/lib/db.php:is_test_mode"
+      ],
+      "exploration": "analyzed",
+      "loc": 11,
+      "lineStart": 70,
+      "lineEnd": 80
+    },
+    "func:www/lib/db.php:is_test_mode": {
+      "deps": [],
+      "exploration": "analyzed",
+      "loc": 7,
+      "lineStart": 57,
+      "lineEnd": 63
+    },
+    "func:www/lib/utils.php:_compta_transform_output": {
+      "deps": [],
+      "exploration": "analyzed",
+      "loc": 20,
+      "lineStart": 11,
+      "lineEnd": 30
+    },
+    "func:www/lib/utils.php:format_date": {
+      "deps": [],
+      "exploration": "analyzed",
+      "loc": 6,
+      "lineStart": 68,
+      "lineEnd": 73
+    },
+    "func:www/lib/utils.php:format_datetime": {
+      "deps": [],
+      "exploration": "analyzed",
+      "loc": 6,
+      "lineStart": 78,
+      "lineEnd": 83
+    },
+    "func:www/lib/utils.php:format_money": {
+      "deps": [],
+      "exploration": "analyzed",
+      "loc": 3,
+      "lineStart": 61,
+      "lineEnd": 63
+    },
+    "func:www/lib/utils.php:generate_piece_number": {
+      "deps": [
+        "func:www/lib/db.php:db_fetch_assoc",
+        "func:www/lib/db.php:db_query"
+      ],
+      "exploration": "analyzed",
+      "loc": 19,
+      "lineStart": 256,
+      "lineEnd": 274,
+      "E": 0,
+      "R": 1,
+      "W": 1,
+      "X": 0
+    },
+    "func:www/lib/utils.php:get": {
+      "deps": [],
+      "exploration": "analyzed",
+      "loc": 3,
+      "lineStart": 139,
+      "lineEnd": 141
+    },
+    "func:www/lib/utils.php:get_accounts": {
+      "deps": [
+        "func:www/lib/db.php:db_escape",
+        "func:www/lib/db.php:db_fetch_all",
+        "func:www/lib/db.php:db_query"
+      ],
+      "exploration": "analyzed",
+      "loc": 13,
+      "lineStart": 227,
+      "lineEnd": 239,
+      "E": 0,
+      "R": 1,
+      "W": 0,
+      "X": 0
+    },
+    "func:www/lib/utils.php:get_company": {
+      "deps": [
+        "func:www/lib/db.php:db_fetch_assoc",
+        "func:www/lib/db.php:db_num_rows",
+        "func:www/lib/db.php:db_query"
+      ],
+      "exploration": "analyzed",
+      "loc": 8,
+      "lineStart": 244,
+      "lineEnd": 251,
+      "E": 0,
+      "R": 1,
+      "W": 0,
+      "X": 0
+    },
+    "func:www/lib/utils.php:get_flash": {
+      "deps": [
+        "func:www/lib/auth.php:auth_start_session"
+      ],
+      "exploration": "analyzed",
+      "loc": 11,
+      "lineStart": 46,
+      "lineEnd": 56
+    },
+    "func:www/lib/utils.php:get_journals": {
+      "deps": [
+        "func:www/lib/db.php:db_fetch_all",
+        "func:www/lib/db.php:db_query"
+      ],
+      "exploration": "analyzed",
+      "loc": 9,
+      "lineStart": 214,
+      "lineEnd": 222,
+      "E": 0,
+      "R": 1,
+      "W": 0,
+      "X": 0
+    },
+    "func:www/lib/utils.php:h": {
+      "deps": [],
+      "exploration": "analyzed",
+      "loc": 3,
+      "lineStart": 125,
+      "lineEnd": 127
+    },
+    "func:www/lib/utils.php:is_post": {
+      "deps": [],
+      "exploration": "analyzed",
+      "loc": 3,
+      "lineStart": 146,
+      "lineEnd": 148
+    },
+    "func:www/lib/utils.php:paginate": {
+      "deps": [],
+      "exploration": "analyzed",
+      "loc": 15,
+      "lineStart": 161,
+      "lineEnd": 175
+    },
+    "func:www/lib/utils.php:pagination_links": {
+      "deps": [],
+      "exploration": "analyzed",
+      "loc": 30,
+      "lineStart": 180,
+      "lineEnd": 209
+    },
+    "func:www/lib/utils.php:parse_date": {
+      "deps": [],
+      "exploration": "analyzed",
+      "loc": 17,
+      "lineStart": 88,
+      "lineEnd": 104
+    },
+    "func:www/lib/utils.php:parse_number": {
+      "deps": [],
+      "exploration": "analyzed",
+      "loc": 12,
+      "lineStart": 109,
+      "lineEnd": 120
+    },
+    "func:www/lib/utils.php:post": {
+      "deps": [],
+      "exploration": "analyzed",
+      "loc": 3,
+      "lineStart": 132,
+      "lineEnd": 134
+    },
+    "func:www/lib/utils.php:redirect": {
+      "deps": [],
+      "exploration": "analyzed",
+      "loc": 4,
+      "lineStart": 153,
+      "lineEnd": 156
+    },
+    "func:www/lib/utils.php:set_flash": {
+      "deps": [
+        "func:www/lib/auth.php:auth_start_session"
+      ],
+      "exploration": "analyzed",
+      "loc": 7,
+      "lineStart": 35,
+      "lineEnd": 41
+    },
+    "func:www/lib/utils.php:validate_double_entry": {
+      "deps": [],
+      "exploration": "analyzed",
+      "loc": 4,
+      "lineStart": 279,
+      "lineEnd": 282
+    },
+    "func:www/login.php": {
+      "deps": [
+        "func:www/lib/auth.php:auth_is_logged_in",
+        "func:www/lib/auth.php:auth_login",
+        "func:www/lib/auth.php:auth_start_session",
+        "func:www/lib/utils.php:get_flash",
+        "func:www/lib/utils.php:h",
+        "func:www/lib/utils.php:is_post",
+        "func:www/lib/utils.php:post",
+        "func:www/lib/utils.php:redirect",
+        "func:www/lib/utils.php:set_flash"
+      ],
+      "exploration": "analyzed",
+      "loc": 86,
+      "lineStart": 1,
+      "lineEnd": 86,
+      "E": 1,
+      "R": 0,
+      "W": 0,
+      "X": 2
+    },
+    "func:www/logout.php": {
+      "deps": [
+        "func:www/lib/auth.php:auth_logout",
+        "func:www/lib/utils.php:redirect",
+        "func:www/lib/utils.php:set_flash"
+      ],
+      "exploration": "analyzed",
+      "loc": 13,
+      "lineStart": 1,
+      "lineEnd": 13,
+      "E": 0,
+      "R": 0,
+      "W": 0,
+      "X": 1
+    },
+    "func:www/modules/admin/users.php:create": {
+      "deps": [
+        "func:www/lib/auth.php:audit_log",
+        "func:www/lib/auth.php:auth_hash_password",
+        "func:www/lib/auth.php:csrf_verify",
+        "func:www/lib/db.php:db_escape",
+        "func:www/lib/db.php:db_insert_id",
+        "func:www/lib/db.php:db_num_rows",
+        "func:www/lib/db.php:db_query",
+        "func:www/lib/utils.php:post",
+        "func:www/lib/utils.php:redirect",
+        "func:www/lib/utils.php:set_flash"
+      ],
+      "exploration": "analyzed",
+      "loc": 52,
+      "lineStart": 37,
+      "lineEnd": 88,
+      "E": 1,
+      "R": 1,
+      "W": 1,
+      "X": 1
+    },
+    "func:www/modules/admin/users.php:delete": {
+      "deps": [
+        "func:www/lib/auth.php:audit_log",
+        "func:www/lib/auth.php:csrf_verify",
+        "func:www/lib/db.php:db_fetch_assoc",
+        "func:www/lib/db.php:db_query",
+        "func:www/lib/utils.php:is_post",
+        "func:www/lib/utils.php:post",
+        "func:www/lib/utils.php:redirect",
+        "func:www/lib/utils.php:set_flash"
+      ],
+      "exploration": "analyzed",
+      "loc": 20,
+      "lineStart": 15,
+      "lineEnd": 34,
+      "E": 1,
+      "R": 1,
+      "W": 1,
+      "X": 1
+    },
+    "func:www/modules/admin/users.php:list": {
+      "deps": [
+        "func:www/footer.php",
+        "func:www/header.php",
+        "func:www/lib/auth.php:auth_user_id",
+        "func:www/lib/auth.php:csrf_field",
+        "func:www/lib/auth.php:require_login",
+        "func:www/lib/db.php:db_fetch_all",
+        "func:www/lib/db.php:db_fetch_assoc",
+        "func:www/lib/db.php:db_num_rows",
+        "func:www/lib/db.php:db_query",
+        "func:www/lib/utils.php:format_datetime",
+        "func:www/lib/utils.php:get",
+        "func:www/lib/utils.php:h"
+      ],
+      "exploration": "analyzed",
+      "loc": 186,
+      "lineStart": 1,
+      "lineEnd": 186,
+      "E": 1,
+      "R": 3,
+      "W": 0,
+      "X": 1
+    },
+    "func:www/modules/admin/users.php:update": {
+      "deps": [
+        "func:www/lib/auth.php:audit_log",
+        "func:www/lib/auth.php:auth_hash_password",
+        "func:www/lib/auth.php:csrf_verify",
+        "func:www/lib/db.php:db_escape",
+        "func:www/lib/db.php:db_num_rows",
+        "func:www/lib/db.php:db_query",
+        "func:www/lib/utils.php:post",
+        "func:www/lib/utils.php:redirect",
+        "func:www/lib/utils.php:set_flash"
+      ],
+      "exploration": "analyzed",
+      "loc": 52,
+      "lineStart": 37,
+      "lineEnd": 88,
+      "E": 1,
+      "R": 1,
+      "W": 2,
+      "X": 1
+    },
+    "func:www/modules/entries/edit.php:create": {
+      "deps": [
+        "func:www/footer.php",
+        "func:www/header.php",
+        "func:www/lib/auth.php:audit_log",
+        "func:www/lib/auth.php:auth_user_id",
+        "func:www/lib/auth.php:csrf_field",
+        "func:www/lib/auth.php:csrf_verify",
+        "func:www/lib/auth.php:require_login",
+        "func:www/lib/db.php:db_escape",
+        "func:www/lib/db.php:db_insert_id",
+        "func:www/lib/db.php:db_query",
+        "func:www/lib/utils.php:generate_piece_number",
+        "func:www/lib/utils.php:get_accounts",
+        "func:www/lib/utils.php:get_journals",
+        "func:www/lib/utils.php:h",
+        "func:www/lib/utils.php:is_post",
+        "func:www/lib/utils.php:parse_date",
+        "func:www/lib/utils.php:parse_number",
+        "func:www/lib/utils.php:post",
+        "func:www/lib/utils.php:redirect",
+        "func:www/lib/utils.php:set_flash",
+        "func:www/lib/utils.php:validate_double_entry"
+      ],
+      "exploration": "analyzed",
+      "loc": 236,
+      "lineStart": 42,
+      "lineEnd": 277,
+      "E": 1,
+      "R": 0,
+      "W": 2,
+      "X": 1
+    },
+    "func:www/modules/entries/edit.php:view": {
+      "deps": [
+        "func:www/footer.php",
+        "func:www/header.php",
+        "func:www/lib/auth.php:require_login",
+        "func:www/lib/db.php:db_fetch_all",
+        "func:www/lib/db.php:db_fetch_assoc",
+        "func:www/lib/db.php:db_num_rows",
+        "func:www/lib/db.php:db_query",
+        "func:www/lib/utils.php:format_date",
+        "func:www/lib/utils.php:format_money",
+        "func:www/lib/utils.php:get",
+        "func:www/lib/utils.php:get_accounts",
+        "func:www/lib/utils.php:get_journals",
+        "func:www/lib/utils.php:h",
+        "func:www/lib/utils.php:redirect",
+        "func:www/lib/utils.php:set_flash"
+      ],
+      "exploration": "analyzed",
+      "loc": 183,
+      "lineStart": 10,
+      "lineEnd": 192,
+      "E": 1,
+      "R": 4,
+      "W": 0,
+      "X": 1
+    },
+    "func:www/modules/entries/list.php": {
+      "deps": [
+        "func:www/footer.php",
+        "func:www/header.php",
+        "func:www/lib/auth.php:require_login",
+        "func:www/lib/db.php:db_escape",
+        "func:www/lib/db.php:db_fetch_all",
+        "func:www/lib/db.php:db_fetch_assoc",
+        "func:www/lib/db.php:db_query",
+        "func:www/lib/utils.php:format_date",
+        "func:www/lib/utils.php:format_money",
+        "func:www/lib/utils.php:get",
+        "func:www/lib/utils.php:get_journals",
+        "func:www/lib/utils.php:h",
+        "func:www/lib/utils.php:paginate",
+        "func:www/lib/utils.php:pagination_links"
+      ],
+      "exploration": "analyzed",
+      "loc": 121,
+      "lineStart": 1,
+      "lineEnd": 121,
+      "E": 1,
+      "R": 4,
+      "W": 0,
+      "X": 1
+    },
+    "func:www/modules/reports/journal.php": {
+      "deps": [
+        "func:www/footer.php",
+        "func:www/header.php",
+        "func:www/lib/auth.php:require_login",
+        "func:www/lib/db.php:db_fetch_all",
+        "func:www/lib/db.php:db_query",
+        "func:www/lib/utils.php:format_date",
+        "func:www/lib/utils.php:format_money",
+        "func:www/lib/utils.php:get",
+        "func:www/lib/utils.php:get_journals",
+        "func:www/lib/utils.php:h"
+      ],
+      "exploration": "analyzed",
+      "loc": 153,
+      "lineStart": 1,
+      "lineEnd": 153,
+      "E": 1,
+      "R": 4,
+      "W": 0,
+      "X": 1
+    },
+    "func:www/modules/reports/ledger.php": {
+      "deps": [
+        "func:www/footer.php",
+        "func:www/header.php",
+        "func:www/lib/auth.php:require_login",
+        "func:www/lib/db.php:db_escape",
+        "func:www/lib/db.php:db_fetch_assoc",
+        "func:www/lib/db.php:db_query",
+        "func:www/lib/utils.php:format_date",
+        "func:www/lib/utils.php:format_money",
+        "func:www/lib/utils.php:get",
+        "func:www/lib/utils.php:get_journals",
+        "func:www/lib/utils.php:h"
+      ],
+      "exploration": "analyzed",
+      "loc": 163,
+      "lineStart": 1,
+      "lineEnd": 163,
+      "E": 1,
+      "R": 4,
+      "W": 0,
+      "X": 1
+    },
+    "func:www/modules/reports/trial_balance.php": {
+      "deps": [
+        "func:www/footer.php",
+        "func:www/header.php",
+        "func:www/lib/auth.php:require_login",
+        "func:www/lib/db.php:db_fetch_all",
+        "func:www/lib/db.php:db_query",
+        "func:www/lib/utils.php:format_money",
+        "func:www/lib/utils.php:h"
+      ],
+      "exploration": "analyzed",
+      "loc": 114,
+      "lineStart": 1,
+      "lineEnd": 114,
+      "E": 0,
+      "R": 2,
+      "W": 0,
+      "X": 1
+    },
+    "func:www/modules/setup/accounts.php:delete": {
+      "deps": [
+        "func:www/lib/auth.php:audit_log",
+        "func:www/lib/auth.php:csrf_verify",
+        "func:www/lib/auth.php:require_login",
+        "func:www/lib/db.php:db_fetch_assoc",
+        "func:www/lib/db.php:db_query",
+        "func:www/lib/utils.php:is_post",
+        "func:www/lib/utils.php:post",
+        "func:www/lib/utils.php:redirect",
+        "func:www/lib/utils.php:set_flash"
+      ],
+      "exploration": "analyzed",
+      "loc": 16,
+      "lineStart": 13,
+      "lineEnd": 28,
+      "E": 1,
+      "R": 1,
+      "W": 1,
+      "X": 1
+    },
+    "func:www/modules/setup/accounts.php:import": {
+      "deps": [
+        "func:www/lib/auth.php:audit_log",
+        "func:www/lib/auth.php:csrf_verify",
+        "func:www/lib/auth.php:require_login",
+        "func:www/lib/db.php:db_escape",
+        "func:www/lib/db.php:db_num_rows",
+        "func:www/lib/db.php:db_query",
+        "func:www/lib/utils.php:is_post",
+        "func:www/lib/utils.php:post",
+        "func:www/lib/utils.php:redirect",
+        "func:www/lib/utils.php:set_flash",
+        "func:www/modules/setup/accounts.php:list"
+      ],
+      "exploration": "analyzed",
+      "loc": 45,
+      "lineStart": 74,
+      "lineEnd": 118,
+      "E": 1,
+      "R": 1,
+      "W": 1,
+      "X": 1
+    },
+    "func:www/modules/setup/accounts.php:list": {
+      "deps": [
+        "func:www/footer.php",
+        "func:www/header.php",
+        "func:www/lib/auth.php:csrf_field",
+        "func:www/lib/db.php:db_escape",
+        "func:www/lib/db.php:db_fetch_all",
+        "func:www/lib/db.php:db_fetch_assoc",
+        "func:www/lib/db.php:db_num_rows",
+        "func:www/lib/db.php:db_query",
+        "func:www/lib/utils.php:get",
+        "func:www/lib/utils.php:h",
+        "func:www/lib/utils.php:paginate",
+        "func:www/lib/utils.php:pagination_links"
+      ],
+      "exploration": "analyzed",
+      "loc": 154,
+      "lineStart": 120,
+      "lineEnd": 273,
+      "E": 1,
+      "R": 2,
+      "W": 0,
+      "X": 1
+    },
+    "func:www/modules/setup/accounts.php:save": {
+      "deps": [
+        "func:www/lib/auth.php:audit_log",
+        "func:www/lib/auth.php:csrf_verify",
+        "func:www/lib/auth.php:require_login",
+        "func:www/lib/db.php:db_escape",
+        "func:www/lib/db.php:db_insert_id",
+        "func:www/lib/db.php:db_num_rows",
+        "func:www/lib/db.php:db_query",
+        "func:www/lib/utils.php:is_post",
+        "func:www/lib/utils.php:post",
+        "func:www/lib/utils.php:redirect",
+        "func:www/lib/utils.php:set_flash",
+        "func:www/modules/setup/accounts.php:list"
+      ],
+      "exploration": "analyzed",
+      "loc": 41,
+      "lineStart": 31,
+      "lineEnd": 71,
+      "E": 1,
+      "R": 1,
+      "W": 1,
+      "X": 1
+    },
+    "func:www/modules/setup/company.php:save": {
+      "deps": [
+        "func:www/footer.php",
+        "func:www/header.php",
+        "func:www/lib/auth.php:audit_log",
+        "func:www/lib/auth.php:csrf_field",
+        "func:www/lib/auth.php:csrf_verify",
+        "func:www/lib/auth.php:require_login",
+        "func:www/lib/db.php:db_escape",
+        "func:www/lib/db.php:db_num_rows",
+        "func:www/lib/db.php:db_query",
+        "func:www/lib/utils.php:get_company",
+        "func:www/lib/utils.php:h",
+        "func:www/lib/utils.php:is_post",
+        "func:www/lib/utils.php:parse_date",
+        "func:www/lib/utils.php:post",
+        "func:www/lib/utils.php:redirect",
+        "func:www/lib/utils.php:set_flash"
+      ],
+      "exploration": "analyzed",
+      "loc": 105,
+      "lineStart": 1,
+      "lineEnd": 105,
+      "E": 1,
+      "R": 1,
+      "W": 1,
+      "X": 2
+    },
+    "func:www/modules/setup/company.php:view": {
+      "deps": [
+        "func:www/footer.php",
+        "func:www/header.php",
+        "func:www/lib/auth.php:csrf_field",
+        "func:www/lib/auth.php:require_login",
+        "func:www/lib/utils.php:get_company",
+        "func:www/lib/utils.php:h"
+      ],
+      "exploration": "analyzed",
+      "loc": 104,
+      "lineStart": 1,
+      "lineEnd": 104,
+      "E": 0,
+      "R": 1,
+      "W": 0,
+      "X": 1
+    },
+    "func:www/modules/setup/journals.php:create": {
+      "deps": [
+        "func:www/lib/auth.php:audit_log",
+        "func:www/lib/auth.php:csrf_verify",
+        "func:www/lib/db.php:db_escape",
+        "func:www/lib/db.php:db_insert_id",
+        "func:www/lib/db.php:db_num_rows",
+        "func:www/lib/db.php:db_query",
+        "func:www/lib/utils.php:post",
+        "func:www/lib/utils.php:redirect",
+        "func:www/lib/utils.php:set_flash"
+      ],
+      "exploration": "analyzed",
+      "loc": 45,
+      "lineStart": 31,
+      "lineEnd": 75,
+      "E": 1,
+      "R": 1,
+      "W": 2,
+      "X": 1
+    },
+    "func:www/modules/setup/journals.php:delete": {
+      "deps": [
+        "func:www/lib/auth.php:audit_log",
+        "func:www/lib/auth.php:csrf_verify",
+        "func:www/lib/db.php:db_fetch_assoc",
+        "func:www/lib/db.php:db_query",
+        "func:www/lib/utils.php:is_post",
+        "func:www/lib/utils.php:post",
+        "func:www/lib/utils.php:redirect",
+        "func:www/lib/utils.php:set_flash"
+      ],
+      "exploration": "analyzed",
+      "loc": 16,
+      "lineStart": 13,
+      "lineEnd": 28,
+      "E": 1,
+      "R": 1,
+      "W": 1,
+      "X": 1
+    },
+    "func:www/modules/setup/journals.php:list": {
+      "deps": [
+        "func:www/footer.php",
+        "func:www/header.php",
+        "func:www/lib/auth.php:csrf_field",
+        "func:www/lib/db.php:db_fetch_all",
+        "func:www/lib/db.php:db_fetch_assoc",
+        "func:www/lib/db.php:db_num_rows",
+        "func:www/lib/db.php:db_query",
+        "func:www/lib/utils.php:get",
+        "func:www/lib/utils.php:h"
+      ],
+      "exploration": "analyzed",
+      "loc": 114,
+      "lineStart": 77,
+      "lineEnd": 190,
+      "E": 1,
+      "R": 3,
+      "W": 0,
+      "X": 1
+    },
+    "func:www/modules/setup/journals.php:update": {
+      "deps": [
+        "func:www/lib/auth.php:audit_log",
+        "func:www/lib/auth.php:csrf_verify",
+        "func:www/lib/db.php:db_escape",
+        "func:www/lib/db.php:db_num_rows",
+        "func:www/lib/db.php:db_query",
+        "func:www/lib/utils.php:post",
+        "func:www/lib/utils.php:redirect",
+        "func:www/lib/utils.php:set_flash"
+      ],
+      "exploration": "analyzed",
+      "loc": 45,
+      "lineStart": 31,
+      "lineEnd": 75,
+      "E": 1,
+      "R": 1,
+      "W": 1,
+      "X": 1
+    },
+    "func:www/test_reset.php": {
+      "deps": [],
+      "exploration": "analyzed",
+      "loc": 75,
+      "lineStart": 1,
+      "lineEnd": 75,
+      "E": 1,
+      "R": 1,
+      "W": 1,
+      "X": 1
+    },
+    "page:/dashboard.php": {
+      "deps": [
+        "func:www/dashboard.php"
+      ],
+      "exploration": "analyzed"
+    },
+    "page:/index.php": {
+      "deps": [
+        "func:www/index.php"
+      ],
+      "exploration": "analyzed"
+    },
+    "page:/login.php": {
+      "deps": [
+        "func:www/login.php"
+      ],
+      "exploration": "analyzed"
+    },
+    "page:/modules/admin/users.php": {
+      "deps": [
+        "subprocess:GET:/modules/admin/users.php:list",
+        "subprocess:POST:/modules/admin/users.php:create",
+        "subprocess:POST:/modules/admin/users.php:delete",
+        "subprocess:POST:/modules/admin/users.php:update"
+      ],
+      "exploration": "analyzed"
+    },
+    "page:/modules/entries/edit.php": {
+      "deps": [
+        "subprocess:GET:/modules/entries/edit.php:view",
+        "subprocess:POST:/modules/entries/edit.php:create"
+      ],
+      "exploration": "analyzed"
+    },
+    "page:/modules/entries/list.php": {
+      "deps": [
+        "func:www/modules/entries/list.php"
+      ],
+      "exploration": "analyzed"
+    },
+    "page:/modules/reports/journal.php": {
+      "deps": [
+        "func:www/modules/reports/journal.php"
+      ],
+      "exploration": "analyzed"
+    },
+    "page:/modules/reports/ledger.php": {
+      "deps": [
+        "func:www/modules/reports/ledger.php"
+      ],
+      "exploration": "analyzed"
+    },
+    "page:/modules/reports/trial_balance.php": {
+      "deps": [
+        "func:www/modules/reports/trial_balance.php"
+      ],
+      "exploration": "analyzed"
+    },
+    "page:/modules/setup/accounts.php": {
+      "deps": [
+        "subprocess:GET:/modules/setup/accounts.php:list",
+        "subprocess:POST:/modules/setup/accounts.php:delete",
+        "subprocess:POST:/modules/setup/accounts.php:import",
+        "subprocess:POST:/modules/setup/accounts.php:save"
+      ],
+      "exploration": "analyzed"
+    },
+    "page:/modules/setup/company.php": {
+      "deps": [
+        "subprocess:GET:/modules/setup/company.php:view",
+        "subprocess:POST:/modules/setup/company.php:save"
+      ],
+      "exploration": "analyzed"
+    },
+    "page:/modules/setup/journals.php": {
+      "deps": [
+        "subprocess:GET:/modules/setup/journals.php:list",
+        "subprocess:POST:/modules/setup/journals.php:create",
+        "subprocess:POST:/modules/setup/journals.php:delete",
+        "subprocess:POST:/modules/setup/journals.php:update"
+      ],
+      "exploration": "analyzed"
+    },
+    "subprocess:GET:/modules/admin/users.php:list": {
+      "deps": [
+        "func:www/modules/admin/users.php:list"
+      ],
+      "exploration": "analyzed"
+    },
+    "subprocess:GET:/modules/entries/edit.php:view": {
+      "deps": [
+        "func:www/modules/entries/edit.php:view"
+      ],
+      "exploration": "analyzed"
+    },
+    "subprocess:GET:/modules/setup/accounts.php:list": {
+      "deps": [
+        "func:www/modules/setup/accounts.php:list"
+      ],
+      "exploration": "analyzed"
+    },
+    "subprocess:GET:/modules/setup/company.php:view": {
+      "deps": [
+        "func:www/modules/setup/company.php:view"
+      ],
+      "exploration": "analyzed"
+    },
+    "subprocess:GET:/modules/setup/journals.php:list": {
+      "deps": [
+        "func:www/modules/setup/journals.php:list"
+      ],
+      "exploration": "analyzed"
+    },
+    "subprocess:POST:/modules/admin/users.php:create": {
+      "deps": [
+        "func:www/modules/admin/users.php:create"
+      ],
+      "exploration": "analyzed"
+    },
+    "subprocess:POST:/modules/admin/users.php:delete": {
+      "deps": [
+        "func:www/modules/admin/users.php:delete"
+      ],
+      "exploration": "analyzed"
+    },
+    "subprocess:POST:/modules/admin/users.php:update": {
+      "deps": [
+        "func:www/modules/admin/users.php:update"
+      ],
+      "exploration": "analyzed"
+    },
+    "subprocess:POST:/modules/entries/edit.php:create": {
+      "deps": [
+        "func:www/modules/entries/edit.php:create"
+      ],
+      "exploration": "analyzed"
+    },
+    "subprocess:POST:/modules/setup/accounts.php:delete": {
+      "deps": [
+        "func:www/modules/setup/accounts.php:delete"
+      ],
+      "exploration": "analyzed"
+    },
+    "subprocess:POST:/modules/setup/accounts.php:import": {
+      "deps": [
+        "func:www/modules/setup/accounts.php:import"
+      ],
+      "exploration": "analyzed"
+    },
+    "subprocess:POST:/modules/setup/accounts.php:save": {
+      "deps": [
+        "func:www/modules/setup/accounts.php:save"
+      ],
+      "exploration": "analyzed"
+    },
+    "subprocess:POST:/modules/setup/company.php:save": {
+      "deps": [
+        "func:www/modules/setup/company.php:save"
+      ],
+      "exploration": "analyzed"
+    },
+    "subprocess:POST:/modules/setup/journals.php:create": {
+      "deps": [
+        "func:www/modules/setup/journals.php:create"
+      ],
+      "exploration": "analyzed"
+    },
+    "subprocess:POST:/modules/setup/journals.php:delete": {
+      "deps": [
+        "func:www/modules/setup/journals.php:delete"
+      ],
+      "exploration": "analyzed"
+    },
+    "subprocess:POST:/modules/setup/journals.php:update": {
+      "deps": [
+        "func:www/modules/setup/journals.php:update"
+      ],
+      "exploration": "analyzed"
+    }
+  }
+}

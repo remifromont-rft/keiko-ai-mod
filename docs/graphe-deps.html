@@ -1,0 +1,555 @@
+<style>
+  :root {
+    --paper:        #f4f1e8;
+    --paper-lines:  #e7e1d1;
+    --surface:      #fffdf7;
+    --surface-2:    #efe9db;
+    --ink:          #211d16;
+    --ink-soft:     #5c554842;
+    --muted:        #6f685a;
+    --hair:         #d6cfbe;
+    --hair-strong:  #c3baa4;
+    --accent:       #1d4e79;   /* encre — repris de l'app (#003366) */
+    --accent-soft:  #1d4e7918;
+    --tomato:       #c1402a;   /* 🍅 réservé au hub / haut risque */
+    --tomato-soft:  #c1402a14;
+    --low:          #3f7d54;
+    --low-bg:       #3f7d5418;
+    --med:          #a76a12;
+    --med-bg:       #a76a1216;
+    --high:         #c1402a;
+    --high-bg:      #c1402a16;
+    --shadow:       0 1px 2px #211d1610, 0 6px 20px #211d160c;
+
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    --sans:  system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono:  ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper:        #14120d;
+      --paper-lines:  #1d1a13;
+      --surface:      #201c15;
+      --surface-2:    #100e0a;
+      --ink:          #ece5d5;
+      --muted:        #a49a86;
+      --hair:         #35301f;
+      --hair-strong:  #47402c;
+      --accent:       #7db0e0;
+      --accent-soft:  #7db0e01c;
+      --tomato:       #e8735a;
+      --tomato-soft:  #e8735a1c;
+      --low:          #6cbf8a;
+      --low-bg:       #6cbf8a1c;
+      --med:          #d6a24a;
+      --med-bg:       #d6a24a1c;
+      --high:         #e8735a;
+      --high-bg:      #e8735a1c;
+      --shadow:       0 1px 2px #00000040, 0 8px 24px #00000050;
+    }
+  }
+  :root[data-theme="light"] {
+    --paper:#f4f1e8; --paper-lines:#e7e1d1; --surface:#fffdf7; --surface-2:#efe9db;
+    --ink:#211d16; --muted:#6f685a; --hair:#d6cfbe; --hair-strong:#c3baa4;
+    --accent:#1d4e79; --accent-soft:#1d4e7918; --tomato:#c1402a; --tomato-soft:#c1402a14;
+    --low:#3f7d54; --low-bg:#3f7d5418; --med:#a76a12; --med-bg:#a76a1216;
+    --high:#c1402a; --high-bg:#c1402a16; --shadow:0 1px 2px #211d1610,0 6px 20px #211d160c;
+  }
+  :root[data-theme="dark"] {
+    --paper:#14120d; --paper-lines:#1d1a13; --surface:#201c15; --surface-2:#100e0a;
+    --ink:#ece5d5; --muted:#a49a86; --hair:#35301f; --hair-strong:#47402c;
+    --accent:#7db0e0; --accent-soft:#7db0e01c; --tomato:#e8735a; --tomato-soft:#e8735a1c;
+    --low:#6cbf8a; --low-bg:#6cbf8a1c; --med:#d6a24a; --med-bg:#d6a24a1c;
+    --high:#e8735a; --high-bg:#e8735a1c; --shadow:0 1px 2px #00000040,0 8px 24px #00000050;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background-color: var(--paper);
+    background-image: repeating-linear-gradient(
+      to bottom, transparent, transparent 31px, var(--paper-lines) 31px, var(--paper-lines) 32px);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px 96px; }
+
+  /* ---------- Masthead ---------- */
+  .mast {
+    padding: 56px 0 28px;
+    border-bottom: 3px double var(--hair-strong);
+    margin-bottom: 40px;
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--tomato);
+    margin: 0 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .eyebrow::after {
+    content: ""; flex: 1; height: 1px; background: var(--hair); opacity: .8;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(2rem, 5vw, 3.15rem);
+    line-height: 1.04;
+    letter-spacing: -.01em;
+    margin: 0 0 16px;
+    text-wrap: balance;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .lede {
+    max-width: 66ch;
+    font-size: 1.06rem;
+    color: var(--muted);
+    margin: 0;
+  }
+  .lede code { font-family: var(--mono); font-size: .86em; color: var(--ink); }
+
+  .stats {
+    display: flex; flex-wrap: wrap; gap: 0;
+    margin-top: 34px;
+    border: 1px solid var(--hair);
+    border-radius: 3px;
+    background: var(--surface);
+    overflow: hidden;
+  }
+  .stat {
+    flex: 1; min-width: 128px;
+    padding: 16px 20px;
+    border-right: 1px solid var(--hair);
+  }
+  .stat:last-child { border-right: 0; }
+  .stat .n {
+    font-family: var(--serif);
+    font-size: 1.9rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    color: var(--accent);
+  }
+  .stat.hub .n { color: var(--tomato); }
+  .stat .l {
+    font-size: 12px; color: var(--muted); margin-top: 6px;
+    letter-spacing: .01em;
+  }
+
+  /* ---------- Section chrome ---------- */
+  section { margin-top: 64px; }
+  .sec-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 8px; }
+  .sec-num {
+    font-family: var(--mono); font-size: 12px; font-weight: 600;
+    color: var(--tomato); letter-spacing: .05em;
+  }
+  h2 {
+    font-family: var(--serif); font-weight: 600;
+    font-size: 1.62rem; letter-spacing: -.01em;
+    margin: 0; text-wrap: balance;
+  }
+  .sec-sub { color: var(--muted); font-size: .96rem; margin: 6px 0 26px; max-width: 70ch; }
+  .sec-sub code { font-family: var(--mono); font-size: .84em; color: var(--ink); }
+
+  /* ---------- Strata diagram ---------- */
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 18px 26px;
+    font-size: 12.5px; color: var(--muted);
+    margin-bottom: 22px; align-items: center;
+  }
+  .legend .flowkey {
+    font-family: var(--mono); font-size: 11.5px;
+    padding: 4px 10px; border: 1px dashed var(--hair-strong); border-radius: 3px;
+    color: var(--ink);
+  }
+  .lk { display: inline-flex; align-items: center; gap: 7px; }
+  .dot { width: 11px; height: 11px; border-radius: 50%; flex: none; }
+  .dot.low { background: var(--low); }
+  .dot.med { background: var(--med); }
+  .dot.high { background: var(--high); }
+  .dot.data { background: var(--accent); }
+
+  .strata { display: flex; flex-direction: column; gap: 0; }
+  .band {
+    position: relative;
+    border: 1px solid var(--hair);
+    background: var(--surface);
+    padding: 16px 18px 18px;
+    box-shadow: var(--shadow);
+  }
+  .band + .band { border-top: 0; }
+  .band:first-child { border-radius: 5px 5px 0 0; }
+  .band:last-child  { border-radius: 0 0 5px 5px; }
+  .band-label {
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: .13em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 13px;
+  }
+  .band-label .tag {
+    font-weight: 700; color: var(--accent);
+    background: var(--accent-soft); padding: 2px 8px; border-radius: 3px;
+    letter-spacing: .08em;
+  }
+  .band-label .desc { text-transform: none; letter-spacing: 0; font-family: var(--sans); font-size: 12.5px; }
+
+  .flow-arrow {
+    text-align: center; color: var(--hair-strong);
+    font-size: 13px; padding: 3px 0; background: transparent;
+    position: relative; z-index: 1;
+  }
+  .flow-arrow span {
+    background: var(--paper); padding: 0 12px;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--muted);
+  }
+
+  .nodes { display: flex; flex-wrap: wrap; gap: 10px; }
+  .node {
+    flex: 1 1 auto; min-width: 150px;
+    border: 1px solid var(--hair); border-radius: 4px;
+    background: var(--surface-2);
+    padding: 11px 13px;
+  }
+  .node .fname {
+    font-family: var(--mono); font-size: 13px; font-weight: 600;
+    color: var(--ink); word-break: break-word;
+  }
+  .node .meta { font-size: 11.5px; color: var(--muted); margin-top: 5px; line-height: 1.45; }
+  .node .meta b { color: var(--ink); font-weight: 600; }
+  .node.root {
+    border-color: var(--accent); border-width: 2px;
+    background: var(--accent-soft);
+  }
+  .node.root .fname { color: var(--accent); }
+  .node.hub {
+    border-color: var(--tomato); border-width: 2px;
+    background: var(--tomato-soft);
+    flex-basis: 100%;
+  }
+  .node.hub .fname { color: var(--tomato); font-size: 14px; }
+  .node .pin {
+    display: inline-block; font-family: var(--mono); font-size: 9.5px;
+    letter-spacing: .08em; text-transform: uppercase;
+    padding: 1px 6px; border-radius: 2px; margin-left: 7px; vertical-align: 1px;
+  }
+  .pin.root { background: var(--accent); color: var(--surface); }
+  .pin.hub  { background: var(--tomato); color: #fff; }
+
+  .band.transverse {
+    border-style: dashed; border-color: var(--tomato);
+    background: var(--tomato-soft); border-radius: 5px; margin-bottom: 14px;
+  }
+  .band.transverse .band-label .tag { color: var(--tomato); background: transparent; padding: 0; }
+
+  /* tables tokens inside data band */
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .chip {
+    font-family: var(--mono); font-size: 11.5px;
+    padding: 3px 9px; border-radius: 3px;
+    background: var(--surface-2); border: 1px solid var(--hair); color: var(--ink);
+  }
+  .chip.core { border-color: var(--tomato); color: var(--tomato); font-weight: 600; }
+  .chip .fan { color: var(--muted); font-weight: 400; }
+
+  /* ---------- Trap callouts ---------- */
+  .traps { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .trap {
+    border: 1px solid var(--hair); border-left: 4px solid var(--tomato);
+    border-radius: 4px; background: var(--surface); padding: 18px 20px;
+    box-shadow: var(--shadow);
+  }
+  .trap h3 {
+    font-family: var(--mono); font-size: 13px; margin: 0 0 4px; color: var(--tomato);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .trap .sub { font-size: 12px; color: var(--muted); margin: 0 0 12px; font-family: var(--sans); }
+  .trap ul { margin: 0; padding-left: 18px; font-size: 13.5px; }
+  .trap li { margin: 4px 0; }
+  .trap code { font-family: var(--mono); font-size: .85em; background: var(--surface-2); padding: 1px 5px; border-radius: 2px; }
+
+  /* ---------- Inventory table ---------- */
+  .table-scroll { overflow-x: auto; border: 1px solid var(--hair); border-radius: 5px; box-shadow: var(--shadow); }
+  table { border-collapse: collapse; width: 100%; min-width: 720px; background: var(--surface); font-size: 13.5px; }
+  thead th {
+    text-align: left; font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--muted); font-weight: 600;
+    padding: 12px 14px; border-bottom: 2px solid var(--hair-strong);
+    background: var(--surface-2); position: sticky; top: 0;
+  }
+  tbody td { padding: 11px 14px; border-bottom: 1px solid var(--hair); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: 0; }
+  tbody tr.hi { background: var(--tomato-soft); }
+  td .path { font-family: var(--mono); font-size: 12.5px; color: var(--ink); }
+  td .path .dir { color: var(--muted); }
+  td.tbls { font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
+  td.tbls b { color: var(--tomato); }
+  .risk {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11.5px; font-weight: 600; white-space: nowrap;
+    padding: 3px 9px; border-radius: 3px;
+  }
+  .risk.low  { color: var(--low);  background: var(--low-bg); }
+  .risk.med  { color: var(--med);  background: var(--med-bg); }
+  .risk.high { color: var(--high); background: var(--high-bg); }
+
+  /* ---------- Migration timeline ---------- */
+  .timeline { border-left: 2px solid var(--hair-strong); margin-left: 8px; padding-left: 0; }
+  .phase { position: relative; padding: 0 0 26px 30px; }
+  .phase::before {
+    content: ""; position: absolute; left: -9px; top: 3px;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--surface); border: 2px solid var(--accent);
+  }
+  .phase.p0::before { border-color: var(--tomato); background: var(--tomato); }
+  .phase.hub-phase::before { border-color: var(--tomato); }
+  .phase:last-child { padding-bottom: 0; }
+  .phase .phead { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .phase .pid {
+    font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--accent);
+    background: var(--accent-soft); padding: 2px 8px; border-radius: 3px;
+  }
+  .phase.p0 .pid, .phase.hub-phase .pid { color: var(--tomato); background: var(--tomato-soft); }
+  .phase .ptitle { font-family: var(--serif); font-size: 1.18rem; font-weight: 600; }
+  .phase .files { display: flex; flex-wrap: wrap; gap: 6px; margin: 9px 0 4px; }
+  .phase .why { font-size: 13.5px; color: var(--muted); margin: 2px 0 0; max-width: 72ch; }
+
+  footer.pg {
+    margin-top: 72px; padding-top: 20px; border-top: 3px double var(--hair-strong);
+    font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+  }
+  footer.pg code { font-family: var(--mono); }
+
+  @media (max-width: 720px) {
+    .traps { grid-template-columns: 1fr; }
+    .stat { min-width: 45%; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="mast">
+    <p class="eyebrow">🍅 Ketchup Compta · Analyse de migration</p>
+    <h1>Graphe de dépendances du legacy&nbsp;: <em>qui dépend de quoi</em>, et dans quel ordre migrer</h1>
+    <p class="lede">Toutes les arêtes ci-dessous sont tracées depuis la source — les <code>require_once</code>, les appels de fonctions partagées, et les tables SQL touchées (<code>FROM / JOIN / INTO / UPDATE</code>). L'ordre de migration découle du couplage interne&nbsp;: reconstruire le socle d'abord, migrer les feuilles isolées en pilote, garder le <em>hub</em> des écritures pour la fin.</p>
+
+    <div class="stats">
+      <div class="stat"><div class="n">14</div><div class="l">pages web</div></div>
+      <div class="stat"><div class="n">4</div><div class="l">libs socle</div></div>
+      <div class="stat"><div class="n">7</div><div class="l">tables SQL</div></div>
+      <div class="stat hub"><div class="n">8</div><div class="l">pages → hub écritures</div></div>
+      <div class="stat hub"><div class="n">2</div><div class="l">pièges logique cachée</div></div>
+    </div>
+  </header>
+
+  <!-- ===================== STRATA ===================== -->
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><h2>Le graphe, en strates</h2></div>
+    <p class="sec-sub">L'architecture est nativement en couches&nbsp;: tout converge vers une racine unique, <code>lib/db.php</code>. Les flèches se lisent vers le bas — <strong>« ce qui est au-dessus dépend de ce qui est en dessous »</strong>.</p>
+
+    <div class="legend">
+      <span class="flowkey">A ↓ B&nbsp;&nbsp;≡&nbsp;&nbsp;A dépend de B</span>
+      <span class="lk"><span class="dot low"></span>risque faible</span>
+      <span class="lk"><span class="dot med"></span>risque moyen</span>
+      <span class="lk"><span class="dot high"></span>risque élevé / hub</span>
+      <span class="lk"><span class="dot data"></span>racine / table pivot</span>
+    </div>
+
+    <!-- transverse rail -->
+    <div class="band transverse">
+      <div class="band-label"><span class="tag">Transverse</span><span class="desc">injecté sur <em>toutes</em> les requêtes via <code>.htaccess · auto_prepend_file</code> — hors de l'arbre de <code>require</code></span></div>
+      <div class="nodes">
+        <div class="node hub" style="flex-basis:100%">
+          <span class="fname">lib/bootstrap.php</span><span class="pin hub">piège</span>
+          <div class="meta">Aucune dépendance, mais transforme silencieusement les <b>POST</b> : trim récursif, décimales FR <b>1&nbsp;234,56 → 1234.56</b>, blocage <code>?debug</code>, log des POST dans <code>/tmp</code>.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="strata">
+
+      <!-- Pages -->
+      <div class="band">
+        <div class="band-label"><span class="tag">Couche 4</span> Pages — chaque page tire db + auth + utils (directement ou via header)</div>
+        <div class="nodes">
+          <div class="node"><span class="fname">index.php</span><span class="pin" style="background:var(--low);color:var(--surface)">0 dép</span><div class="meta">Ni auth ni db · lit <b>VERSION</b></div></div>
+          <div class="node"><span class="fname">login.php</span><div class="meta">→ db·auth·utils · <b>users</b></div></div>
+          <div class="node"><span class="fname">logout.php</span><div class="meta">→ db·auth·utils</div></div>
+          <div class="node"><span class="fname">dashboard.php</span><div class="meta">→ header · <b>entries · journals · users</b></div></div>
+          <div class="node"><span class="fname">setup/company.php</span><div class="meta">→ full · <b>company</b></div></div>
+          <div class="node"><span class="fname">setup/journals.php</span><div class="meta">→ full · <b>journals · entries</b></div></div>
+          <div class="node"><span class="fname">setup/accounts.php</span><div class="meta">→ full · <b>accounts · entry_lines</b> · import CSV</div></div>
+          <div class="node"><span class="fname">reports/trial_balance.php</span><div class="meta">→ header · <b>accounts · entry_lines · entries</b></div></div>
+          <div class="node"><span class="fname">reports/ledger.php</span><div class="meta">→ header · <b>entry_lines · entries · accounts · journals</b></div></div>
+          <div class="node"><span class="fname">reports/journal.php</span><div class="meta">→ header · <b>entries · journals · entry_lines · accounts</b></div></div>
+          <div class="node"><span class="fname">entries/list.php</span><div class="meta">→ full · <b>entries · journals · users</b></div></div>
+          <div class="node"><span class="fname">admin/users.php</span><div class="meta">→ full · <b>users · entries · audit_log</b></div></div>
+          <div class="node hub">
+            <span class="fname">modules/entries/edit.php</span><span class="pin hub">hub · ~850 lignes</span>
+            <div class="meta">Point de convergence du domaine · <b>entries · entry_lines · journals · accounts</b> · utilise <code>get_journals · get_accounts · generate_piece_number · validate_double_entry</code></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-arrow"><span>↓ dépend de ↓</span></div>
+
+      <!-- Layout -->
+      <div class="band">
+        <div class="band-label"><span class="tag">Couche 2</span> Layout</div>
+        <div class="nodes">
+          <div class="node"><span class="fname">header.php</span><div class="meta">→ db · auth · utils · rend la nav (liens vers toutes les pages)</div></div>
+          <div class="node"><span class="fname">footer.php</span><div class="meta">HTML pur · <b>jquery.js · app.js</b> · aucune dép PHP</div></div>
+        </div>
+      </div>
+
+      <div class="flow-arrow"><span>↓ dépend de ↓</span></div>
+
+      <!-- Foundations -->
+      <div class="band">
+        <div class="band-label"><span class="tag">Couche 1</span> Fondations — bloquantes pour tout le reste</div>
+        <div class="nodes">
+          <div class="node"><span class="fname">lib/auth.php</span><div class="meta">→ db · session · CSRF · <code>auth_login</code> · <code>audit_log()</code></div></div>
+          <div class="node"><span class="fname">lib/utils.php</span><div class="meta">→ db · format · flash · <code>get_journals/accounts/company</code> · <code>generate_piece_number</code></div></div>
+          <div class="node root"><span class="fname">lib/db.php</span><span class="pin root">racine</span><div class="meta">Connexion SQLite + <code>db_query/fetch/escape</code>. <b>Aucune dépendance.</b> Tout le graphe remonte ici.</div></div>
+        </div>
+      </div>
+
+      <div class="flow-arrow"><span>↓ opère sur ↓</span></div>
+
+      <!-- Data -->
+      <div class="band">
+        <div class="band-label"><span class="tag">Couche 3</span> Données — <code>sql/01_schema · 02_seed · 03_triggers</code></div>
+        <div class="chips">
+          <span class="chip">users <span class="fan">← users, entries, audit_log</span></span>
+          <span class="chip">company</span>
+          <span class="chip">accounts</span>
+          <span class="chip">journals</span>
+          <span class="chip core">entries <span class="fan">← hub · 8 pages</span></span>
+          <span class="chip core">entry_lines <span class="fan">← hub · 6 pages</span></span>
+          <span class="chip">audit_log</span>
+        </div>
+        <div class="meta" style="margin-top:12px;font-size:12px;color:var(--muted)">Ordre FK-implicite&nbsp;: <code>users · company · accounts · journals</code> indépendantes → <code>entries</code> (→journals, users) → <code>entry_lines</code> (→entries, accounts) · <code>audit_log</code> (→users).</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== TRAPS ===================== -->
+  <section>
+    <div class="sec-head"><span class="sec-num">02</span><h2>Les deux pièges de logique cachée</h2></div>
+    <p class="sec-sub">Du comportement métier vit <em>hors</em> du code des pages — invisible à la lecture d'un écran. À réimplémenter <strong>explicitement</strong> dans la cible, sinon régressions silencieuses.</p>
+    <div class="traps">
+      <div class="trap">
+        <h3>◆ lib/bootstrap.php</h3>
+        <p class="sub">Auto-prepend sur 100&nbsp;% des requêtes. Aucun écran ne le « voit ».</p>
+        <ul>
+          <li>Trim récursif de tous les <code>$_POST</code></li>
+          <li>Décimales françaises&nbsp;: <code>1&nbsp;234,56 → 1234.56</code> sur les champs <code>amount/debit/credit/total/price/rate/vat</code></li>
+          <li>Blocage de <code>?debug</code> &amp; <code>?_debug</code></li>
+          <li>Log silencieux des POST → <code>/tmp/compta_posts.log</code></li>
+        </ul>
+      </div>
+      <div class="trap">
+        <h3>◆ sql/03_triggers.sql</h3>
+        <p class="sub">Règles métier appliquées par la base, pas par PHP.</p>
+        <ul>
+          <li>Arrondi automatique des <code>entry_lines</code> (INSERT + UPDATE)</li>
+          <li>Immutabilité&nbsp;: interdiction de supprimer une écriture postée (<code>entries</code>)</li>
+          <li>Touch <code>entries</code> après insertion</li>
+          <li>→ à porter dans la couche applicative de la cible</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== INVENTORY ===================== -->
+  <section>
+    <div class="sec-head"><span class="sec-num">03</span><h2>Inventaire des pages</h2></div>
+    <p class="sec-sub">Trié par phase de migration. « full » = db + auth + utils + header + footer. Colonnes couplées au graphe ci-dessus.</p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Page</th><th>Dépendances</th><th>Tables touchées</th><th>Risque</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="path">index.php</span></td><td>— (autonome)</td><td class="tbls">— (VERSION)</td><td><span class="risk low">● très faible</span></td></tr>
+          <tr><td><span class="path">login.php</span></td><td>db · auth · utils</td><td class="tbls">users</td><td><span class="risk low">● faible</span></td></tr>
+          <tr><td><span class="path">logout.php</span></td><td>db · auth · utils</td><td class="tbls">—</td><td><span class="risk low">● faible</span></td></tr>
+          <tr><td><span class="path"><span class="dir">setup/</span>company.php</span></td><td>full</td><td class="tbls">company</td><td><span class="risk low">● faible</span></td></tr>
+          <tr><td><span class="path"><span class="dir">setup/</span>journals.php</span></td><td>full</td><td class="tbls">journals · <b>entries</b></td><td><span class="risk med">● moyen</span></td></tr>
+          <tr><td><span class="path"><span class="dir">setup/</span>accounts.php</span></td><td>full</td><td class="tbls">accounts · <b>entry_lines</b></td><td><span class="risk med">● moyen · CSV</span></td></tr>
+          <tr><td><span class="path"><span class="dir">reports/</span>trial_balance.php</span></td><td>header → libs</td><td class="tbls">accounts · <b>entry_lines · entries</b></td><td><span class="risk med">● moyen · RO</span></td></tr>
+          <tr><td><span class="path"><span class="dir">reports/</span>ledger.php</span></td><td>header → libs</td><td class="tbls"><b>entry_lines · entries</b> · accounts · journals</td><td><span class="risk med">● moyen · RO</span></td></tr>
+          <tr><td><span class="path"><span class="dir">reports/</span>journal.php</span></td><td>header → libs</td><td class="tbls"><b>entries</b> · journals · <b>entry_lines</b> · accounts</td><td><span class="risk med">● moyen · RO</span></td></tr>
+          <tr><td><span class="path"><span class="dir">entries/</span>list.php</span></td><td>full</td><td class="tbls"><b>entries</b> · journals · users</td><td><span class="risk med">● moyen</span></td></tr>
+          <tr class="hi"><td><span class="path"><span class="dir">entries/</span>edit.php</span></td><td>full + 4 helpers utils</td><td class="tbls"><b>entries · entry_lines</b> · journals · accounts</td><td><span class="risk high">● élevé · hub</span></td></tr>
+          <tr><td><span class="path">dashboard.php</span></td><td>full</td><td class="tbls"><b>entries</b> · journals · users</td><td><span class="risk med">● moyen</span></td></tr>
+          <tr><td><span class="path"><span class="dir">admin/</span>users.php</span></td><td>full</td><td class="tbls">users · <b>entries</b> · audit_log</td><td><span class="risk med">● moyen</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===================== TIMELINE ===================== -->
+  <section>
+    <div class="sec-head"><span class="sec-num">04</span><h2>Ordre de migration recommandé</h2></div>
+    <p class="sec-sub">Reconstruire ce dont tout dépend, migrer les feuilles isolées en pilote, garder le hub des écritures pour la fin.</p>
+
+    <div class="timeline">
+      <div class="phase p0">
+        <div class="phead"><span class="pid">P0</span><span class="ptitle">Modèle de données + logique cachée</span></div>
+        <div class="files"><span class="chip">01_schema.sql</span><span class="chip">03_triggers.sql</span><span class="chip">bootstrap.php</span></div>
+        <p class="why">Réimplémenter <strong>explicitement</strong> arrondi &amp; immutabilité (triggers) et les transformations POST (décimales FR, trim). Fondation du domaine.</p>
+      </div>
+      <div class="phase">
+        <div class="phead"><span class="pid">P1</span><span class="ptitle">Fondations</span></div>
+        <div class="files"><span class="chip core">db.php</span><span class="chip">auth.php</span><span class="chip">utils.php</span></div>
+        <p class="why"><code>db.php</code> d'abord (racine), puis <code>auth.php</code> + <code>utils.php</code> en parallèle. Bloquants pour toutes les pages.</p>
+      </div>
+      <div class="phase">
+        <div class="phead"><span class="pid">P2</span><span class="ptitle">Layout</span></div>
+        <div class="files"><span class="chip">header.php</span><span class="chip">footer.php</span></div>
+        <p class="why">Coquille commune (nav + pied) réutilisée par toutes les pages écran.</p>
+      </div>
+      <div class="phase">
+        <div class="phead"><span class="pid">P3</span><span class="ptitle">Feuilles / pilotes</span></div>
+        <div class="files"><span class="chip">index.php</span><span class="chip">login.php</span><span class="chip">logout.php</span></div>
+        <p class="why"><code>index.php</code> a <strong>zéro dépendance</strong> → banc d'essai idéal pour valider la chaîne de build/déploiement de la cible.</p>
+      </div>
+      <div class="phase">
+        <div class="phead"><span class="pid">P4</span><span class="ptitle">Setup — données de référence</span></div>
+        <div class="files"><span class="chip">company.php</span><span class="chip">accounts.php</span><span class="chip">journals.php</span></div>
+        <p class="why">Tables de base, indépendantes des écritures. Peuplent le référentiel avant de migrer les flux transactionnels.</p>
+      </div>
+      <div class="phase">
+        <div class="phead"><span class="pid">P5</span><span class="ptitle">États — lecture seule</span></div>
+        <div class="files"><span class="chip">trial_balance.php</span><span class="chip">ledger.php</span><span class="chip">journal.php</span></div>
+        <p class="why">Dépendent de <code>entries/entry_lines</code> mais sans écriture — faible risque, valident la lecture du domaine avant d'attaquer le hub.</p>
+      </div>
+      <div class="phase hub-phase">
+        <div class="phead"><span class="pid">P6</span><span class="ptitle">Écritures — le hub</span></div>
+        <div class="files"><span class="chip">list.php</span><span class="chip core">edit.php</span></div>
+        <p class="why"><code>list.php</code> puis <code>edit.php</code> — le fichier le plus complexe (~850 l., chemin d'écriture, équilibre partie double, numérotation de pièce). En dernier, une fois le socle éprouvé.</p>
+      </div>
+      <div class="phase">
+        <div class="phead"><span class="pid">P7</span><span class="ptitle">Agrégats &amp; admin</span></div>
+        <div class="files"><span class="chip">dashboard.php</span><span class="chip">admin/users.php</span></div>
+        <p class="why">Dépendent des écritures postées + de l'audit. Migrés une fois le domaine transactionnel stabilisé.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="pg">
+    <span>Arêtes vérifiées par <code>grep</code> sur <code>legacy/www</code> — <code>require</code>, appels de fonctions, <code>FROM/JOIN/INTO/UPDATE</code>.</span>
+    <span>Couverture&nbsp;: 14 pages · 4 libs · header/footer · 3 SQL — aucun fichier orphelin.</span>
+  </footer>
+
+</div>
